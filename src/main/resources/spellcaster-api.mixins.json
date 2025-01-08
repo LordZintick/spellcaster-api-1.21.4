@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "com.lordkittycat.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+      "LoadWorldMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

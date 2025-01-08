@@ -1,0 +1,8 @@
+{
+  "methodID": "com.lordkittycat.DefaultSpells:castFireball",
+  "description": "Shoots a fireball",
+  "requiredParams": [
+    "ServerWorld",
+    "PlayerEntity"
+  ]
+}
