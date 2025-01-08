@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "displayName": {
+      "type": "string",
+      "description": "The display name of the spell"
+    },
+    "cooldown": {
+      "type": "number",
+      "description": "The cooldown of the spell"
+    },
+    "actions": {
+      "type": "array",
+      "description": "The actions the spell activates",
+      "items": {
+        "type": "string"
+      }
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the spell"
+    },
+    "ingredient": {
+      "type": "string",
+      "description": "The ingredient used to craft the spell in the crafting grid"
+    },
+    "parameterFlags": {
+      "type": "object",
+      "description": "The default parameters to provide to the actions",
+      "properties": {
+        "world": {
+          "type": "boolean",
+          "description": "Wether to provide the World as a parameter or not"
+        },
+        "player": {
+          "type": "boolean",
+          "description": "Wether to provide the PlayerEntity as a parameter or not"
+        },
+        "itemstack": {
+          "type": "boolean",
+          "description": "Wether to provide the ItemStack as a parameter or not"
+        }
+      }
+    }
+  },
+  "required": [
+    "displayName",
+    "cooldown",
+    "actions",
+    "ingredient",
+    "parameterFlags"
+  ]
+}

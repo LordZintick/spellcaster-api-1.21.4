@@ -36,6 +36,15 @@ public class SpellLoader {
             }
             SpellCasterAPI.LOGGER.warn("Could not find spell with id: {}", id.toString());
         }
+
+        public Spell getByIngredient(Identifier ingredient) {
+            for (Spell spell : this) {
+                if (Objects.equals(spell.ingredient, ingredient)) {
+                    return spell;
+                }
+            }
+            return null;
+        }
     }
 
     public static void reloadData(MinecraftServer server) {
