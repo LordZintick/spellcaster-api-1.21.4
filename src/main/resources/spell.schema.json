@@ -25,30 +25,11 @@
       "type": "string",
       "description": "The ingredient used to craft the spell in the crafting grid"
     },
-    "parameterFlags": {
-      "type": "object",
-      "description": "The default parameters to provide to the actions",
-      "properties": {
-        "world": {
-          "type": "boolean",
-          "description": "Wether to provide the World as a parameter or not"
-        },
-        "player": {
-          "type": "boolean",
-          "description": "Wether to provide the PlayerEntity as a parameter or not"
-        },
-        "itemstack": {
-          "type": "boolean",
-          "description": "Wether to provide the ItemStack as a parameter or not"
-        }
-      }
-    }
-  },
-  "required": [
-    "displayName",
-    "cooldown",
-    "actions",
-    "ingredient",
-    "parameterFlags"
-  ]
+    "required": [
+      "displayName",
+      "cooldown",
+      "actions",
+      "ingredient"
+    ]
+  }
 }

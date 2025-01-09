@@ -13,33 +13,30 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class SpellLoader {
-    public static final SpellActionsList SPELL_ACTIONS = new SpellActionsList();
     public static final SpellsList SPELLS = new SpellsList();
 
-    public static final class SpellActionsList extends ArrayList<SpellAction> {
-        public SpellAction getByID(Identifier id) throws IllegalArgumentException {
-            for (SpellAction spellAction : this) {
-                if (Objects.equals(spellAction.id, id)) {
-                    return spellAction;
-                }
-            }
-            throw new IllegalArgumentException("Could not find spell action with action id: " + id.toString());
-        }
-    }
-
     public static final class SpellsList extends ArrayList<Spell> {
-        public void castSpell(Identifier id, Object... params) {
+        public void castSpell(Identifier id, Spell.SpellParameterProvider parameterProvider) {
             for (Spell spell : this) {
                 if (Objects.equals(spell.id, id)) {
-                    spell.cast(params);
+                    spell.cast(parameterProvider);
                 }
             }
-            SpellCasterAPI.LOGGER.warn("Could not find spell with id: {}", id.toString());
+            throw new IllegalArgumentException("Could not find spell with id: " + id.toString());
         }
 
         public Spell getByIngredient(Identifier ingredient) {
             for (Spell spell : this) {
-                if (Objects.equals(spell.ingredient, ingredient)) {
+                if (Objects.equals(Identifier.of(spell.ingredient), ingredient)) {
+                    return spell;
+                }
+            }
+            throw new IllegalArgumentException("Could not find spell with ingredient: " + ingredient.toString() + " (make sure that spell ingredients are valid identifiers)");
+        }
+
+        public Spell getByID(Identifier id) {
+            for (Spell spell : this) {
+                if (Objects.equals(spell.id, id)) {
                     return spell;
                 }
             }
@@ -50,10 +47,8 @@ public class SpellLoader {
     public static void reloadData(MinecraftServer server) {
         SpellCasterAPI.LOGGER.info("Reloading spell data...");
         int bfspells = SPELLS.size();
-        int bfspellActions = SPELL_ACTIONS.size();
-        SPELL_ACTIONS.clear();
         SPELLS.clear();
-        SpellCasterAPI.LOGGER.info("Cleared spell data - Spells cleared: {}, Spell Actions cleared: {}", bfspells, bfspellActions);
+        SpellCasterAPI.LOGGER.info("Cleared spell data - Spells cleared: {}", bfspells);
         loadData(server);
     }
 
@@ -74,15 +69,6 @@ public class SpellLoader {
         SpellCasterAPI.LOGGER.info("Loading spell data...");
         for (ResourcePack pack : server.getDataPackManager().createResourcePacks()) {
             for (String namespace : pack.getNamespaces(ResourceType.SERVER_DATA)) {
-                pack.findResources(ResourceType.SERVER_DATA, namespace, "spell_actions", (identifier, inputStreamInputSupplier) -> {
-                    try {
-                        SpellAction spellAction = gson.fromJson(new BufferedReader(new InputStreamReader(inputStreamInputSupplier.get(), StandardCharsets.UTF_8)), SpellAction.class);
-                        spellAction.id = Identifier.of(identifier.toString().replace("spell_actions/", "").replace(".json",""));
-                        SPELL_ACTIONS.add(spellAction);
-                    } catch (IOException e) {
-                        SpellCasterAPI.LOGGER.warn("An error occurred when creating spell action reader: " + e.getMessage());
-                    }
-                });
                 pack.findResources(ResourceType.SERVER_DATA, namespace, "spells", (identifier, inputStreamInputSupplier) -> {
                     try {
                         Spell spell = gson.fromJson(new BufferedReader(new InputStreamReader(inputStreamInputSupplier.get(), StandardCharsets.UTF_8)), Spell.class);
@@ -94,6 +80,6 @@ public class SpellLoader {
                 });
             }
         }
-        SpellCasterAPI.LOGGER.info("Finished loading spell data - Spells loaded: {}, Spell Actions loaded: {}", SPELLS.size(), SPELL_ACTIONS.size());
+        SpellCasterAPI.LOGGER.info("Finished loading spell data - Spells loaded: {}", SPELLS.size());
     }
 }
