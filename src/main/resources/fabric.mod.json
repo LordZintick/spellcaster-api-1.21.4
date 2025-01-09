@@ -3,7 +3,7 @@
 	"id": "spellcaster-api",
 	"version": "${version}",
 	"name": "SpellCaster API",
-	"description": "A simple API to load spells from data",
+	"description": "An API that loads spells from JSON files and adds a wand to cast them",
 	"authors": [
 		"LordKittycat"
 	],
@@ -27,8 +27,5 @@
 		"minecraft": "~1.21.4",
 		"java": ">=21",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }

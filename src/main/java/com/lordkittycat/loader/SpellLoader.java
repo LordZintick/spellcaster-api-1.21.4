@@ -13,9 +13,60 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class SpellLoader {
-    public static final SpellsList SPELLS = new SpellsList();
+    public static final SpellContainer SPELLS = new SpellContainer();
+    public static final BasicRegistry<Class<?>> SPELL_COLLECTIONS = new BasicRegistry<>();
 
-    public static final class SpellsList extends ArrayList<Spell> {
+    public static final class BasicRegistry<T> {
+        private final ArrayList<String> IDS = new ArrayList<>();
+        private final ArrayList<T> VALUES = new ArrayList<>();
+
+        public void register(String id, T value) {
+            if (!IDS.contains(id)) {
+                IDS.add(id);
+            } else {
+                throw new IllegalArgumentException("Identifier is already registered: \"" + id + "\"");
+            }
+            if (!VALUES.contains(value)) {
+                VALUES.add(value);
+            } else {
+                throw new IllegalArgumentException("Value is already registered: \"" + value.toString() + "\"");
+            }
+        }
+
+        public T get(String id) {
+            if (IDS.contains(id)) {
+                try {
+                    return VALUES.get(IDS.indexOf(id));
+                } catch (Exception e) {
+                    throw new IllegalArgumentException("Could not get value for identifier: \"" + id + "\"");
+                }
+            } else {
+                throw new IllegalArgumentException("Could not find identifier: \"" + id + "\"");
+            }
+        }
+
+        public String getID(T value) {
+            if (VALUES.contains(value)) {
+                try {
+                    return IDS.get(VALUES.indexOf(value));
+                } catch (Exception e) {
+                    throw new IllegalArgumentException("Could not get identifier for value: \"" + value.toString() + "\"");
+                }
+            } else {
+                throw new IllegalArgumentException("Could not find value: \"" + value.toString() + "\"");
+            }
+        }
+
+        public ArrayList<String> getIDs() {
+            return IDS;
+        }
+
+        public ArrayList<T> getValues() {
+            return VALUES;
+        }
+    }
+
+    public static final class SpellContainer extends ArrayList<Spell> {
         public void castSpell(Identifier id, Spell.SpellParameterProvider parameterProvider) {
             for (Spell spell : this) {
                 if (Objects.equals(spell.id, id)) {
@@ -75,11 +126,11 @@ public class SpellLoader {
                         spell.id = Identifier.of(identifier.toString().replace("spells/", "").replace(".json",""));
                         SPELLS.add(spell);
                     } catch (IOException e) {
-                        SpellCasterAPI.LOGGER.warn("An error occurred when creating spell reader: " + e.getMessage());
+                        SpellCasterAPI.LOGGER.warn("An error occurred when creating spell reader: {}", e.getMessage());
                     }
                 });
             }
         }
-        SpellCasterAPI.LOGGER.info("Finished loading spell data - Spells loaded: {}", SPELLS.size());
+        SpellCasterAPI.LOGGER.info("Finished loading spell data. Spells loaded: {}", SPELLS.size());
     }
 }

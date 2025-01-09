@@ -3,8 +3,7 @@
   "cooldown": 2.0,
   "description": "Shoots a fireball",
   "ingredient": "minecraft:fire_charge",
-  "methodID": "com.lordkittycat.DefaultSpells:castFireball",
-  "parameters": {
-    "testint": 123
-  }
+  "methods": [
+    "com.lordkittycat.DefaultSpells:castFireball(34)"
+  ]
 }

@@ -38,34 +38,17 @@ public class SpellCasterAPI implements ModInitializer {
 
 		ServerLifecycleEvents.START_DATA_PACK_RELOAD.register((server, resourceManager) -> SpellLoader.reloadData(server));
 		UseItemCallback.EVENT.register(((player, world, hand) -> {
-			LOGGER.info("Use item callback triggered!");
 			ItemStack stack = player.getStackInHand(hand);
 			Item item = stack.getItem();
 
 			if (item == Items.STICK) {
-				LOGGER.info("Item is a stick");
 				if (Objects.equals(Objects.requireNonNull(stack.get(DataComponentTypes.CUSTOM_NAME)).getLiteralString(), "Wand")) {
-					LOGGER.info("Stick is name \"Wand\"");
 					if (Objects.requireNonNull(stack.get(DataComponentTypes.CUSTOM_MODEL_DATA)).floats().contains(750001f)) {
-						LOGGER.info("Stick's custom model data contains \"750001\"");
 						CustomModelDataComponent customModelData = Objects.requireNonNull(stack.get(DataComponentTypes.CUSTOM_MODEL_DATA));
 						Spell spell = SpellLoader.SPELLS.getByID(Identifier.of(customModelData.strings().getFirst()));
-						ArrayList<String> paramKeys = new ArrayList<>(spell.parameters.keySet());
-						Map<String, Object> paramValues = new HashMap<>(Map.of());
-						for (int i = 0; i < paramKeys.size(); i++) {
-							String key = paramKeys.get(i);
-							JsonPrimitive param = spell.parameters.getAsJsonPrimitive(key);
-							if (param.isString()) {
-								paramValues.put(key, spell.parameters.get(key).getAsString());
-							}
-							if (param.isNumber()) {
-								paramValues.put(key, spell.parameters.get(key).getAsNumber().intValue());
-							}
-							if (param.isBoolean()) {
-								paramValues.put(key, spell.parameters.get(key).getAsBoolean());
-							}
-						}
-						Spell.SpellParameterProvider parameterProvider = new Spell.SpellParameterProvider(paramValues, world, player, stack);
+                        assert spell != null;
+                        player.getItemCooldownManager().set(stack, (int) (spell.cooldown * 20));
+						Spell.SpellParameterProvider parameterProvider = new Spell.SpellParameterProvider(world, player, stack);
 						SpellLoader.SPELLS.castSpell(Identifier.of(customModelData.strings().getFirst()), parameterProvider);
 					}
 				}
