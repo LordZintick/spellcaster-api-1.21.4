@@ -1,0 +1,12 @@
+{
+  "displayName": "Big Fireball",
+  "cooldown": 2.0,
+  "description": "Shoots an explosive fireball",
+  "ingredients": [
+    "minecraft:tnt",
+    "minecraft:fire_charge"
+  ],
+  "actions": [
+    "spellcaster-api:fireball(0.75, true)"
+  ]
+}

@@ -1,9 +1,11 @@
 {
   "displayName": "Fireball",
-  "cooldown": 2.0,
+  "cooldown": 0.5,
   "description": "Shoots a fireball",
-  "ingredient": "minecraft:fire_charge",
-  "methods": [
-    "com.lordkittycat.DefaultSpells:castFireball(34)"
+  "ingredients": [
+    "minecraft:fire_charge"
+  ],
+  "actions": [
+    "spellcaster-api:fireball(1.0, false)"
   ]
 }

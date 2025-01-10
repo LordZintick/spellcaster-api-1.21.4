@@ -2,7 +2,9 @@ package com.lordkittycat.loader;
 
 import com.google.gson.Gson;
 import com.lordkittycat.SpellCasterAPI;
+import net.fabricmc.fabric.impl.resource.loader.ModNioResourcePack;
 import net.minecraft.resource.ResourcePack;
+import net.minecraft.resource.ResourcePackManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
@@ -10,16 +12,22 @@ import net.minecraft.util.Identifier;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
 public class SpellLoader {
     public static final SpellContainer SPELLS = new SpellContainer();
-    public static final BasicRegistry<Class<?>> SPELL_COLLECTIONS = new BasicRegistry<>();
+    public static final BasicRegistry<Class<?>> SPELL_PROVIDERS = new BasicRegistry<>();
 
     public static final class BasicRegistry<T> {
         private final ArrayList<String> IDS = new ArrayList<>();
         private final ArrayList<T> VALUES = new ArrayList<>();
 
+        /**
+         * Registers "value" to the registry with an identifier of "id"
+         * @param id The ID to register to
+         * @param value The value to register
+         */
         public void register(String id, T value) {
             if (!IDS.contains(id)) {
                 IDS.add(id);
@@ -68,21 +76,29 @@ public class SpellLoader {
 
     public static final class SpellContainer extends ArrayList<Spell> {
         public void castSpell(Identifier id, Spell.SpellParameterProvider parameterProvider) {
+            boolean foundSpell = false;
             for (Spell spell : this) {
                 if (Objects.equals(spell.id, id)) {
                     spell.cast(parameterProvider);
+                    foundSpell = true;
                 }
             }
-            throw new IllegalArgumentException("Could not find spell with id: " + id.toString());
+            if (!foundSpell) {
+                throw new IllegalArgumentException("Could not find spell with id: " + id.toString());
+            }
         }
 
-        public Spell getByIngredient(Identifier ingredient) {
+        public Spell getByIngredients(ArrayList<Identifier> ingredients) {
             for (Spell spell : this) {
-                if (Objects.equals(Identifier.of(spell.ingredient), ingredient)) {
+                ArrayList<String> ingredientsStrings = new ArrayList<>();
+                for (Identifier id : ingredients) {ingredientsStrings.add(id.toString());}
+                if (spell.ingredients.containsAll(ingredientsStrings) && spell.ingredients.size() == ingredients.size()) {
                     return spell;
+                } else {
+                    SpellCasterAPI.LOGGER.debug("Spell with ingredients: {} does not match ingredients provided: {}", spell.ingredients, ingredientsStrings);
                 }
             }
-            throw new IllegalArgumentException("Could not find spell with ingredient: " + ingredient.toString() + " (make sure that spell ingredients are valid identifiers)");
+            throw new IllegalArgumentException("Could not find spell with ingredients: " + ingredients.toString() + " (make sure that spell ingredients are valid identifiers)");
         }
 
         public Spell getByID(Identifier id) {
@@ -118,6 +134,7 @@ public class SpellLoader {
     public static void loadData(MinecraftServer server) {
         Gson gson = new Gson();
         SpellCasterAPI.LOGGER.info("Loading spell data...");
+        server.getDataPackManager().scanPacks();
         for (ResourcePack pack : server.getDataPackManager().createResourcePacks()) {
             for (String namespace : pack.getNamespaces(ResourceType.SERVER_DATA)) {
                 pack.findResources(ResourceType.SERVER_DATA, namespace, "spells", (identifier, inputStreamInputSupplier) -> {

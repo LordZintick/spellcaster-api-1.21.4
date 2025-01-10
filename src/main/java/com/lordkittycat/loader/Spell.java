@@ -1,6 +1,5 @@
 package com.lordkittycat.loader;
 
-import com.google.gson.JsonObject;
 import com.lordkittycat.SpellCasterAPI;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -14,33 +13,29 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class Spell implements StringConvertable {
     public final String displayName;
     public final float cooldown;
     public final String description;
-    public final String ingredient;
-    public final ArrayList<String> methods;
-    public final JsonObject parameters;
+    public final ArrayList<String> ingredients;
+    public final ArrayList<String> actions;
     public Identifier id;
 
-    public Spell(String displayName, float cooldown, String description, String ingredient, ArrayList<String> methods, JsonObject parameters) {
+    public Spell(String displayName, float cooldown, String description, ArrayList<String> ingredients, ArrayList<String> actions) {
         this.displayName = displayName;
         this.cooldown = cooldown;
         this.description = description;
-        this.ingredient = ingredient;
-        this.methods = methods;
-        this.parameters = parameters;
+        this.ingredients = ingredients;
+        this.actions = actions;
     }
 
-    public Spell(String displayName, float cooldown, String ingredient, ArrayList<String> methods, JsonObject parameters) {
+    public Spell(String displayName, float cooldown, ArrayList<String> ingredients, ArrayList<String> actions) {
         this.displayName = displayName;
         this.cooldown = cooldown;
-        this.ingredient = ingredient;
-        this.methods = methods;
-        this.parameters = parameters;
+        this.ingredients = ingredients;
+        this.actions = actions;
         this.description = "(no description)";
     }
 
@@ -73,45 +68,47 @@ public class Spell implements StringConvertable {
     private void runMethod(String methodID, SpellParameterProvider parameterProvider) {
         String[] methodIDSplit = methodID.split(":");
         if (methodIDSplit.length == 2) {
-            String[] parameters = methodIDSplit[1].split("\\(")[1].replace(")", "").split(",");
+            String[] parameters = methodIDSplit[1].split("\\(")[1].replace(")", "").replace(" ", "").split(",");
             String collectionID = methodIDSplit[0];
             String actionID = methodIDSplit[1].split("\\(")[0];
-
-            ArrayList<Class<?>> paramClasses = extractClasses(parameters);
-            final ArrayList<Class<?>> finalClasses = new ArrayList<>();
-            finalClasses.add(SpellParameterProvider.class);
-            finalClasses.addAll(paramClasses);
 
             final ArrayList<Object> finalParameters = new ArrayList<>();
             finalParameters.add(parameterProvider);
             finalParameters.addAll(extractValues(parameters));
 
-            for (Class<?> clazz : SpellLoader.SPELL_COLLECTIONS.getValues()) {
-                Method method = null;
-                for (Method searchMethod : clazz.getMethods()) {
-                    if (searchMethod.isAnnotationPresent(SpellAction.class)) {
-                        Annotation annot = searchMethod.getAnnotation(SpellAction.class);
-                        if (annot instanceof SpellAction spellAction) {
-                            if (Objects.equals(spellAction.id(), actionID)) {
-                                method = searchMethod;
-                            }
+            for (Class<?> clazz : SpellLoader.SPELL_PROVIDERS.getValues()) {
+                if (Objects.equals(SpellLoader.SPELL_PROVIDERS.getID(clazz), collectionID)) {
+                    Method method = getSpellActionMethod(clazz, actionID);
+                    if (method != null) {
+                        try {
+                            method.invoke(this, finalParameters.toArray());
+                        } catch (IllegalAccessException | InvocationTargetException e) {
+                            SpellCasterAPI.LOGGER.error("An error occurred when casting spell: {}", e.getMessage());
+                            e.printStackTrace();
                         }
+                    } else {
+                        throw new IllegalArgumentException("Could not find spell action with ID: \"" + actionID + "\" in spell collection: \"" + collectionID + "\"");
                     }
-                }
-                if (method != null) {
-                    try {
-                        method.invoke(this, finalParameters.toArray());
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        SpellCasterAPI.LOGGER.error("An error occurred when casting spell: {}", e.getMessage());
-                        e.printStackTrace();
-                    }
-                } else {
-                    throw new IllegalArgumentException("Could not find method with ID: \"" + methodID + "\"");
                 }
             }
         } else {
             throw new IllegalArgumentException("Method ID must be in this format: <spell collection id>:<spell action identifier>(<parameters>)");
         }
+    }
+
+    private static @Nullable Method getSpellActionMethod(Class<?> clazz, String actionID) {
+        Method method = null;
+        for (Method searchMethod : clazz.getMethods()) {
+            if (searchMethod.isAnnotationPresent(SpellAction.class)) {
+                Annotation annot = searchMethod.getAnnotation(SpellAction.class);
+                if (annot instanceof SpellAction spellAction) {
+                    if (Objects.equals(spellAction.id(), actionID)) {
+                        method = searchMethod;
+                    }
+                }
+            }
+        }
+        return method;
     }
 
     private @NotNull ArrayList<Class<?>> extractClasses(String[] parameters) {
@@ -149,18 +146,19 @@ public class Spell implements StringConvertable {
                 params.add(param);
             }
         }
+        SpellCasterAPI.LOGGER.info("Parameter classes are: {}", extractClasses(parameters));
         return params;
     }
 
     public void cast(SpellParameterProvider parameterProvider) {
         SpellCasterAPI.LOGGER.info("Casting spell {}!", displayName);
-        for (String methodID : methods) {
+        for (String methodID : actions) {
             runMethod(methodID, parameterProvider);
         }
     }
 
     @Override
     public String asString() {
-        return "Spell: {\"displayName\": " + this.displayName + ",\"cooldown\": " + this.cooldown + ",\"methodID\":\n" + this.methods + "\n,\"ingredient\": " + ingredient + "}";
+        return "Spell: {\"displayName\": " + this.displayName + ",\"cooldown\": " + this.cooldown + ",\"methodID\":\n" + this.actions + "\n,\"ingredient\": " + ingredients + "}";
     }
 }
