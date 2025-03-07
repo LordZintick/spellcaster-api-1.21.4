@@ -7,7 +7,7 @@ While [you can add new spells with a datapack](https://github.com/LordZintick/sp
 
 ## List of Default Spells (With a description and sorted alphabetically)
 > [!CAUTION]
-> \* \- Exercise caution with disabled cooldowns/mana costs or in Creative Mode, as these spells can possibly crash the server if they are used rapidly
+> \* \- Exercise caution with these spells, as because of the way minecraft works, these spells may crash the server if used too much
 
 - Arrow Blast* - 2 second cooldown; 50 mana - Shoots a blast of arrows in every direction
   - Ingredients: Arrow and TNT
