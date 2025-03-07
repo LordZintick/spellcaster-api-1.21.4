@@ -2,6 +2,31 @@
 SpellCaster API is a Fabric mod to load spells from JSON files.<br>
 Only a datapack is required to add new spells, but a mod is required to add new functionality.<br>
 
+## List of Default Spells (With a description and sorted alphabetically)
+- Arrow Blast - 2 second cooldown; 50 mana - Shoots a blast of arrows in every direction
+  - Ingredients: Arrow and TNT
+- Arrow Cluster - 2 second cooldown; 50 mana - Shoots a cluster of arrows in front of you
+  - Ingredients: Arrow and Cobblestone
+- Arrow Stream - 3 second cooldown; 40 mana - Shoots a stream of arrows in front of you
+  - Ingredients: Arrow and Iron Ingot
+- Big Fireball - 1.5 second cooldown; 35 mana - Shoots an explosive ghast fireball in front of you
+  - Ingredients: TNT and Fire Charge
+- Cookie Blast - 2 second cooldown; 50 mana - Causes a huge explosion of cookies
+  - Ingredients: Cookie and TNT
+- Dash - 6 second cooldown; 50 mana - Gives you super speed for a few seconds
+  - Ingredients: Sugar and Sugar
+- Dragon Barrage - 3.5 second cooldown; 50 mana - Shoots a barrage of dragon fireballs in front of you
+  - Ingredients: Dragon's Breath, Fire Charge, and Bow
+- Dragon Fireball - 1 second cooldown; 15 mana - Shoots a dragon fireball that explodes into a cloud of toxic mist in front of you
+  - Ingredients: Dragon's Breath and Fire Charge
+- Explosive Barrage - 4.5 second cooldown; 65 mana - Shoots a barrage of explosive ghast fireballs in front of you
+  - Ingredients: Fire Charge, TNT, and Bow
+- Fang Circle - 5 second cooldown; 50 mana - Summons a circle of evoker fangs around you
+  - Ingredients: Shears and Diamond
+- Fang Line - 2 second cooldown; 25 mana - Summons a line of evoker fangs in front of you
+  - Ingredients: Shears and Gold Ingot
+- Fireball - to be continued
+
 ## How to add a new spell
 To add a new spell, first create a new datapack as normal.<br>
 Your datapck should look something like this:
