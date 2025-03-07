@@ -7,6 +7,6 @@
     "minecraft:glistering_melon"
   ],
   "actions": [
-    "spellcaster-api:addEffect(minecraft;instant_health,1,2)"
+    "spellcaster-api:addEffect(minecraft;instant_health,1,0)"
   ]
 }
