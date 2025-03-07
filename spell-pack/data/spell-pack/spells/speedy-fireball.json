@@ -1,12 +1,13 @@
 {
   "displayName": "Speedy Fireball",
   "cooldown": 1,
+  "manaCost": 10,
   "description": "Shoots a speedy fireball",
   "ingredients": [
     "minecraft:fire_charge",
     "minecraft:sugar"
   ],
   "actions": [
-    "spellcaster-api:fireball(3.0, false)"
+    "spellcaster-api:fireball(8.0, false)"
   ]
 }

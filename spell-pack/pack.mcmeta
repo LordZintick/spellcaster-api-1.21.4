@@ -1,0 +1,6 @@
+{
+  "pack": {
+    "pack_format": 48,
+    "description": "A collection of the default spells for SpellCaster API. Feel free to modify these."
+  }
+}

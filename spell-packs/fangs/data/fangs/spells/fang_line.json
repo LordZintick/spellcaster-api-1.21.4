@@ -1,0 +1,13 @@
+{
+  "displayName": "Fang Line",
+  "cooldown": 2.0,
+  "manaCost": 25,
+  "description": "Summons a line of evoker fangs in front of you",
+  "ingredients": [
+    "minecraft:shears",
+    "minecraft:gold_ingot"
+  ],
+  "actions": [
+    "spellcaster-api:fangs(10, false)"
+  ]
+}

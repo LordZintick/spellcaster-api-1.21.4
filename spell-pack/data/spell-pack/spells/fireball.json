@@ -1,6 +1,7 @@
 {
   "displayName": "Fireball",
   "cooldown": 0.5,
+  "manaCost": 5,
   "description": "Shoots a fireball",
   "ingredients": [
     "minecraft:fire_charge"

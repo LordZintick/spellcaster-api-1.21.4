@@ -1,0 +1,12 @@
+{
+  "displayName": "Teleport",
+  "cooldown": 1.5,
+  "manaCost": 15,
+  "description": "Shoots an ender pearl that teleports you",
+  "ingredients": [
+    "minecraft:ender_pearl"
+  ],
+  "actions": [
+    "spellcaster-api:teleport(2.0)"
+  ]
+}

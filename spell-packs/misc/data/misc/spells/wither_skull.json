@@ -1,0 +1,12 @@
+{
+  "displayName": "Wither Skull",
+  "cooldown": 1.0,
+  "manaCost": 20,
+  "description": "Shoots a wither skull",
+  "ingredients": [
+    "minecraft:wither_skeleton_skull"
+  ],
+  "actions": [
+    "spellcaster-api:shootEntities(minecraft;wither_skull, 1, 2.0, 0.0, 0.0)"
+  ]
+}

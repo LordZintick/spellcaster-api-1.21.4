@@ -1,0 +1,13 @@
+{
+  "displayName": "Cookie Blast",
+  "cooldown": 2.0,
+  "manaCost": 50,
+  "description": "Fires out cookies from all sides",
+  "ingredients": [
+    "minecraft:cookie",
+    "minecraft:tnt"
+  ],
+  "actions": [
+    "spellcaster-api:shootItems(minecraft;cookie,200,0.5,0.0,2.0)"
+  ]
+}

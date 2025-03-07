@@ -1,6 +1,7 @@
 {
   "displayName": "Big Fireball",
-  "cooldown": 2.0,
+  "cooldown": 1.5,
+  "manaCost": 35,
   "description": "Shoots an explosive fireball",
   "ingredients": [
     "minecraft:tnt",

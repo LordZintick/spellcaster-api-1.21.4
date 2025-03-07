@@ -1,0 +1,13 @@
+{
+  "displayName": "Leap",
+  "cooldown": 6.0,
+  "manaCost": 50,
+  "description": "Grants extreme jump for a short time",
+  "ingredients": [
+    "minecraft:slime_block",
+    "minecraft:slime_ball"
+  ],
+  "actions": [
+    "spellcaster-api:addEffect(minecraft;jump_boost,5,14)"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "displayName": "Night Vision",
+  "cooldown": 5.0,
+  "manaCost": 50,
+  "description": "Grants night vision",
+  "ingredients": [
+    "minecraft:golden_carrot"
+  ],
+  "actions": [
+    "spellcaster-api:addEffect(minecraft;night_vision,120,0)"
+  ]
+}

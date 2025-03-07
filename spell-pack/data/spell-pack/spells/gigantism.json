@@ -1,0 +1,13 @@
+{
+  "displayName": "Gigantism",
+  "cooldown": 10.0,
+  "manaCost": 100,
+  "description": "You ate your vegetables",
+  "ingredients": [
+    "minecraft:command_block",
+    "minecraft:enchanted_golden_apple"
+  ],
+  "actions": [
+    "spellcaster-api:setScale(10.0,15.0)"
+  ]
+}

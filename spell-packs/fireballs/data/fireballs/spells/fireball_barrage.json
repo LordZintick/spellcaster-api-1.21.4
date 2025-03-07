@@ -1,0 +1,13 @@
+{
+  "displayName": "Fireball Barrage",
+  "cooldown": 3.5,
+  "manaCost": 50,
+  "description": "Shoots a barrage of fireballs",
+  "ingredients": [
+    "minecraft:fire_charge",
+    "minecraft:bow"
+  ],
+  "actions": [
+    "spellcaster-api:shootEntities(minecraft;small_fireball, 8, 1.0, 0.15, 0.0)"
+  ]
+}

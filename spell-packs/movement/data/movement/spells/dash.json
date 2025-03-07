@@ -1,0 +1,13 @@
+{
+  "displayName": "Dash",
+  "cooldown": 6.0,
+  "manaCost": 50,
+  "description": "Grants extreme speed for a short time",
+  "ingredients": [
+    "minecraft:sugar",
+    "minecraft:sugar"
+  ],
+  "actions": [
+    "spellcaster-api:addEffect(minecraft;speed,5,31)"
+  ]
+}

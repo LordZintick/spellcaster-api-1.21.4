@@ -1,0 +1,14 @@
+{
+  "displayName": "Saturate",
+  "cooldown": 5.0,
+  "manaCost": 50,
+  "description": "Fills your hunger",
+  "ingredients": [
+    "minecraft:cooked_beef",
+    "minecraft:cooked_mutton",
+    "minecraft:cooked_chicken"
+  ],
+  "actions": [
+    "spellcaster-api:addEffect(minecraft;saturation,1,255)"
+  ]
+}

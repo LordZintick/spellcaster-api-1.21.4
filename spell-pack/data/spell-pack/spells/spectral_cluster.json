@@ -1,0 +1,13 @@
+{
+  "displayName": "Spectral Cluster",
+  "cooldown": 2.0,
+  "manaCost": 50,
+  "description": "Shoots a cluster of spectral arrows",
+  "ingredients": [
+    "minecraft:spectral_arrow",
+    "minecraft:cobblestone"
+  ],
+  "actions": [
+    "spellcaster-api:shootEntities(minecraft;spectral_arrow,25,2.5,0.0,0.1)"
+  ]
+}

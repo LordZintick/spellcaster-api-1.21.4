@@ -1,0 +1,13 @@
+{
+  "displayName": "Grow",
+  "cooldown": 5.0,
+  "manaCost": 25,
+  "description": "Grow to a bigger size for 30 seconds",
+  "ingredients": [
+    "minecraft:seeds",
+    "minecraft:golden_apple"
+  ],
+  "actions": [
+    "spellcaster-api:setScale(2.0,30.0)"
+  ]
+}

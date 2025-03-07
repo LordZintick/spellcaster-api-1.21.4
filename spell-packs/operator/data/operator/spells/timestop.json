@@ -1,0 +1,14 @@
+{
+  "displayName": "Timestop",
+  "cooldown": 15.0,
+  "manaCost": 100,
+  "description": "Stop time for 10 seconds",
+  "ingredients": [
+    "minecraft:clock",
+    "minecraft:ice",
+    "minecraft:command_block"
+  ],
+  "actions": [
+    "spellcaster-api:tickRate(0,10.0)"
+  ]
+}

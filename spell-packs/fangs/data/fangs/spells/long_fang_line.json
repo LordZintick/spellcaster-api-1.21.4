@@ -1,0 +1,14 @@
+{
+  "displayName": "Long Fang Line",
+  "cooldown": 3.0,
+  "manaCost": 50,
+  "description": "Summons a long line of evoker fangs in front of you",
+  "ingredients": [
+    "minecraft:shears",
+    "minecraft:gold_ingot",
+    "minecraft:emerald"
+  ],
+  "actions": [
+    "spellcaster-api:fangs(25, false)"
+  ]
+}

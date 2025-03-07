@@ -1,0 +1,13 @@
+{
+  "displayName": "Spectral Stream",
+  "cooldown": 3.0,
+  "manaCost": 40,
+  "description": "Shoots a stream of spectral arrows",
+  "ingredients": [
+    "minecraft:spectral_arrow",
+    "minecraft:iron_ingot"
+  ],
+  "actions": [
+    "spellcaster-api:shootEntities(minecraft;spectral_arrow,25,2.0,0.05,0.01)"
+  ]
+}

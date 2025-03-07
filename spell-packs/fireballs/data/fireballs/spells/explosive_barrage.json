@@ -1,0 +1,14 @@
+{
+  "displayName": "Explosive Barrage",
+  "cooldown": 4.5,
+  "manaCost": 65,
+  "description": "Shoots a barrage of explosive fireballs",
+  "ingredients": [
+    "minecraft:tnt",
+    "minecraft:fire_charge",
+    "minecraft:bow"
+  ],
+  "actions": [
+    "spellcaster-api:shootEntities(minecraft;fireball, 5, 0.75, 0.25, 0.0)"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "displayName": "Arrow Cluster",
+  "cooldown": 2.0,
+  "manaCost": 50,
+  "description": "Shoots a cluster of arrows",
+  "ingredients": [
+    "minecraft:arrow",
+    "minecraft:cobblestone"
+  ],
+  "actions": [
+    "spellcaster-api:shootEntities(minecraft;arrow,25,2.5,0.0,0.1)"
+  ]
+}

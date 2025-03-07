@@ -1,11 +1,12 @@
 {
-	"required": true,
-	"package": "com.lordkittycat.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-      "LoadWorldMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "com.lordkittycat.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "PlayerEntityMixin",
+    "ScreenHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

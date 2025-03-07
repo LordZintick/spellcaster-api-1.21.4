@@ -21,25 +21,28 @@ public class Spell implements StringConvertable {
     public final String description;
     public final ArrayList<String> ingredients;
     public final ArrayList<String> actions;
+    public final int manaCost;
     public Identifier id;
 
-    public Spell(String displayName, float cooldown, String description, ArrayList<String> ingredients, ArrayList<String> actions) {
+    public Spell(String displayName, float cooldown, String description, ArrayList<String> ingredients, ArrayList<String> actions, int manaCost) {
         this.displayName = displayName;
         this.cooldown = cooldown;
         this.description = description;
         this.ingredients = ingredients;
         this.actions = actions;
+        this.manaCost = manaCost;
     }
 
-    public Spell(String displayName, float cooldown, ArrayList<String> ingredients, ArrayList<String> actions) {
+    public Spell(String displayName, float cooldown, ArrayList<String> ingredients, ArrayList<String> actions, int manaCost) {
         this.displayName = displayName;
         this.cooldown = cooldown;
         this.ingredients = ingredients;
         this.actions = actions;
+        this.manaCost = manaCost;
         this.description = "(no description)";
     }
 
-    public record SpellParameterProvider(World world, PlayerEntity player, ItemStack stack) {
+    public record SpellParameterProvider(PlayerEntity player, ItemStack stack) {
     }
 
     @Nullable
@@ -68,9 +71,11 @@ public class Spell implements StringConvertable {
     private void runMethod(String methodID, SpellParameterProvider parameterProvider) {
         String[] methodIDSplit = methodID.split(":");
         if (methodIDSplit.length == 2) {
-            String[] parameters = methodIDSplit[1].split("\\(")[1].replace(")", "").replace(" ", "").split(",");
-            String collectionID = methodIDSplit[0];
+            String yesspace = methodIDSplit[1].split("\\(")[1].replace(")", "");
+            String nospace = methodIDSplit[1].split("\\(")[1].replace(")", "").replace(" ", "");
             String actionID = methodIDSplit[1].split("\\(")[0];
+            String[] parameters = (Objects.equals(actionID, "execute") ? yesspace : nospace).split(",");
+            String collectionID = methodIDSplit[0];
 
             final ArrayList<Object> finalParameters = new ArrayList<>();
             finalParameters.add(parameterProvider);
@@ -92,7 +97,7 @@ public class Spell implements StringConvertable {
                 }
             }
         } else {
-            throw new IllegalArgumentException("Method ID must be in this format: <spell collection id>:<spell action identifier>(<parameters>)");
+            SpellCasterAPI.LOGGER.error("Method ID must be in this format: <spell collection id>:<spell action identifier>(<parameters>) (make sure to replace colons \":\" with semicolons \";\"!)");
         }
     }
 
@@ -117,16 +122,18 @@ public class Spell implements StringConvertable {
         for (String param : params) {
             Class<?> clazz;
             SpellCasterAPI.LOGGER.info("Parsing parameter: {} to get class", param);
-            if (tryParseInt(param) != null) {
-                clazz = Integer.class;
-            } else if (tryParseFloat(param) != null) {
-                clazz = Float.class;
-            } else if (tryParseBool(param) != null) {
-                clazz = Boolean.class;
-            } else {
-                clazz = String.class;
+            if (!Objects.equals(param, "")) {
+                if (tryParseInt(param) != null) {
+                    clazz = Integer.class;
+                } else if (tryParseFloat(param) != null) {
+                    clazz = Float.class;
+                } else if (tryParseBool(param) != null) {
+                    clazz = Boolean.class;
+                } else {
+                    clazz = String.class;
+                }
+                paramClasses.add(clazz);
             }
-            paramClasses.add(clazz);
         }
         return paramClasses;
     }
@@ -136,14 +143,16 @@ public class Spell implements StringConvertable {
         ArrayList<Object> params = new ArrayList<>();
         for (String param : rawParams) {
             SpellCasterAPI.LOGGER.info("Parsing parameter: {}", param);
-            if (tryParseInt(param) != null) {
-                params.add(Integer.parseInt(param));
-            } else if (tryParseFloat(param) != null) {
-                params.add(Float.parseFloat(param));
-            } else if (tryParseBool(param) != null) {
-                params.add(Boolean.parseBoolean(param));
-            } else {
-                params.add(param);
+            if (!Objects.equals(param, "")) {
+                if (tryParseInt(param) != null) {
+                    params.add(Integer.parseInt(param));
+                } else if (tryParseFloat(param) != null) {
+                    params.add(Float.parseFloat(param));
+                } else if (tryParseBool(param) != null) {
+                    params.add(Boolean.parseBoolean(param));
+                } else {
+                    params.add(param);
+                }
             }
         }
         SpellCasterAPI.LOGGER.info("Parameter classes are: {}", extractClasses(parameters));
@@ -159,6 +168,6 @@ public class Spell implements StringConvertable {
 
     @Override
     public String asString() {
-        return "Spell: {\"displayName\": " + this.displayName + ",\"cooldown\": " + this.cooldown + ",\"methodID\":\n" + this.actions + "\n,\"ingredient\": " + ingredients + "}";
+        return "Spell: {\"displayName\": " + this.displayName + ",\"cooldown\": " + this.cooldown + ",\"methodID\":\n" + this.actions + "\n,\"ingredient\": " + ingredients + ",\"manaCost\":" + manaCost;
     }
 }
