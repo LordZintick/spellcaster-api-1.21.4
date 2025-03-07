@@ -2,7 +2,7 @@
   "displayName": "Smoke Screen",
   "cooldown": 2.5,
   "manaCost": 50,
-  "description": "Makes you invisible and creates a smoke screen around you",
+  "description": "Makes nearby players invisible and creates a smoke screen around you",
   "ingredients": [
     "minecraft:white_wool",
     "minecraft:glass"
