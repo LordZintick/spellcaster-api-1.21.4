@@ -1,6 +1,6 @@
 # SpellCaster API
 SpellCaster API is a Fabric mod to load spells from JSON files.<br>
-While [you can add new spells with a datapack](url), the mod itself contains a plethora of default spells that you can use anytime.<br>
+While [you can add new spells with a datapack](https://github.com/LordZintick/spellcaster-api-1.21.4/tree/master?tab=readme-ov-file#how-to-add-a-new-spell), the mod itself contains a plethora of default spells that you can use anytime.<br>
 **Note that this mod may not be very balanced, proceed with caution in large modpacks or servers**
 
 ## List of Default Spells (With a description and sorted alphabetically)
