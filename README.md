@@ -69,14 +69,14 @@ While [you can add new spells with a datapack](https://github.com/LordZintick/sp
   - Ingredients: Spectral Arrow and Iron Ingot
 - Speedy Fireball - 1 second cooldown; 10 mana - Shoots a fast blaze fireball that ignites the block it hits
   - Ingredients: Fire Charge and Sugar
+- Teledash - 0.5 second cooldown; 20 mana - Dashes forward 5 blocks
+  - Ingredients: Ender Pearl and Sugar
 - Teleport - 1.5 second cooldown; 15 mana - Shoots an ender pearl that teleports you to where it lands
   - Ingredients: Ender Pearl
 - Timeslow - 15 second cooldown; 100 mana - Creative Only - Slows time to half speed for 10 seconds
   - Ingredients: Clock, Fermented Spider Eye, and Command Block
 - Timestop - 15 second cooldown; 100 mana - Creative Only - Stops time (you and other players can still move) for 10 seconds
   - Ingredients: Clock, Ice, and Command Block
-- TNT Shot - 2 second cooldown; 25 mana - Shoots a lit tnt in front of you
-  - Ingredients: TNT
 - Wither Skull - 1 second cooldown; 20 mana - Shoots a wither skull that slightly explodes when it hits something in front of you
   - Ingredients: Wither Skeleton Skull
 
@@ -139,6 +139,9 @@ They need to be written as `<spell provider namespace>:<spell action id>(<parame
     + The `<spell action id>` is the id of the spell action method inside of the spell provider class (Look at the [Default Spells](https://github.com/LordZintick/spellcaster-api-1.21.4/blob/master/src/main/java/com/lordkittycat/DefaultSpells.java) class to see all of the spell actions and ids)
     + The `<parameters>` is a comma-separated list of parameters to search for an action with (Look at the [Default Spells](https://github.com/LordZintick/spellcaster-api-1.21.4/blob/master/src/main/java/com/lordkittycat/DefaultSpells.java) class to see all of the spell actions and their required parameters)
     + Example: `spellcaster-api:fireball(1.0, false)` will look for a spell action with id `fireball` with a `Float` parameter and a `Boolean` parameter in the spell provider with namespace `spellcaster-api` (the default provided spell actions). It will then trigger the method, providing `1.0` as the first parameter, and `false` as the second.
+> [!IMPORTANT]
+> Some default spell actions take an identifier as a parameter (for an item, entity, effect, etc.), such as `minecraft:zombie` or `minecraft:diamond`. 
+> With these identifiers, you have to use a semicolon (`;`) instead of a colon (`:`) or else it will not work.
 
 You just created a spell file! This file you just created creates a spell with a 1-second cooldown and a mana cost of 10 that shoots a small blaze fireball with a speed of 1! In order to craft it, you combine a stick and a diamond.<br>
 You can now go into the game and test your new spell! (if you already had the game open, use the `/reload` command)
