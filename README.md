@@ -100,7 +100,7 @@ Your datapack should now look something like this:
       - spells
 ```
 Now, create a `.json` file inside your `spells` folder to represent your spell.<br>
-This can be named whatever, but make sure it is inside your `spells` folder!<br>
+This can be named whatever as long as there are no spaces, but make sure it is inside your `spells` folder!<br>
 Your datapack should now look something like this:
 ```
 - ExampleDataPack
