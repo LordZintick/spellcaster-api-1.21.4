@@ -79,6 +79,9 @@ While [you can add new spells with a datapack](https://github.com/LordZintick/sp
   - Ingredients: Wither Skeleton Skull
 
 ## How to add a new spell
+> [!NOTE]
+> This guide assumes you already know how to set up a datapack and pack.mcmeta
+
 To add a new spell, first create a new datapack as normal.<br>
 Your datapck should look something like this:
 ```
