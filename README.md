@@ -146,4 +146,4 @@ They need to be written as `<spell provider namespace>:<spell action id>(<parame
 
 You just created a spell file! This file you just created creates a spell with a 1-second cooldown and a mana cost of 10 that shoots a small blaze fireball with a speed of 1! In order to craft it, you combine a stick and a diamond.<br>
 You can now go into the game and test your new spell! (if you already had the game open, use the `/reload` command)
-You can add as many spells as you want, feel free to add other ones!
+You can add as many spells as you want, feel free to add other ones and experiment with the different parameters and actions.
