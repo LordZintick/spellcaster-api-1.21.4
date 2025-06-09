@@ -90,7 +90,7 @@ Your datapck should look something like this:
   - data
     - example <-- replace this with your namespace
 ```
-Next, create a `spells` folder inside your namespace folder (the `example` folder).<br>
+Next, create a `spells` folder inside your namespace folder (the `example` folder) to hold all of your spells.<br>
 Your datapack should now look something like this:
 ```
 - ExampleDataPack
@@ -99,7 +99,7 @@ Your datapack should now look something like this:
     - example
       - spells
 ```
-Now, create a `.json` file inside your `spells` folder to hold all of your spells.<br>
+Now, create a `.json` file inside your `spells` folder to represent your spell.<br>
 This can be named whatever, but make sure it is inside your `spells` folder!<br>
 Your datapack should now look something like this:
 ```
