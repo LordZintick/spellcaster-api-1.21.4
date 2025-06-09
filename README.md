@@ -6,26 +6,24 @@ While [you can add new spells with a datapack](https://github.com/LordZintick/sp
 > Feel free to use this in a modpack or on a server, though, again, it is not very well balanced
 
 ## List of Default Spells (With a description and sorted alphabetically)
-> [!CAUTION]
-> \* \- Exercise caution with these spells, as because of the way minecraft works, these spells may crash the server if used too much
 
-- Arrow Blast* - 2 second cooldown; 50 mana - Shoots a blast of arrows in every direction
+- Arrow Blast - 2 second cooldown; 50 mana - Shoots a blast of arrows in every direction
   - Ingredients: Arrow and TNT
-- Arrow Cluster* - 2 second cooldown; 50 mana - Shoots a cluster of arrows in front of you
+- Arrow Cluster - 2 second cooldown; 50 mana - Shoots a cluster of arrows in front of you
   - Ingredients: Arrow and Cobblestone
-- Arrow Stream* - 3 second cooldown; 40 mana - Shoots a stream of arrows in front of you
+- Arrow Stream - 3 second cooldown; 40 mana - Shoots a stream of arrows in front of you
   - Ingredients: Arrow and Iron Ingot
 - Big Fireball - 1.5 second cooldown; 35 mana - Shoots an explosive ghast fireball in front of you
   - Ingredients: TNT and Fire Charge
-- Cookie Blast* - 2 second cooldown; 50 mana - Causes a huge explosion of cookies
+- Cookie Blast - 2 second cooldown; 50 mana - Causes a huge explosion of cookies
   - Ingredients: Cookie and TNT
 - Dash - 6 second cooldown; 50 mana - Gives you super speed for a few seconds
   - Ingredients: Sugar and Sugar
-- Dragon Barrage* - 3.5 second cooldown; 50 mana - Shoots a barrage of dragon fireballs in front of you
+- Dragon Barrage - 3.5 second cooldown; 50 mana - Shoots a barrage of dragon fireballs in front of you
   - Ingredients: Dragon's Breath, Fire Charge, and Bow
 - Dragon Fireball - 1 second cooldown; 15 mana - Shoots a dragon fireball that explodes into a cloud of toxic mist in front of you
   - Ingredients: Dragon's Breath and Fire Charge
-- Explosive Barrage* - 4.5 second cooldown; 65 mana - Shoots a barrage of explosive ghast fireballs in front of you
+- Explosive Barrage - 4.5 second cooldown; 65 mana - Shoots a barrage of explosive ghast fireballs in front of you
   - Ingredients: Fire Charge, TNT, and Bow
 - Fang Circle - 5 second cooldown; 50 mana - Summons a circle of evoker fangs around you
   - Ingredients: Shears and Diamond
@@ -33,7 +31,7 @@ While [you can add new spells with a datapack](https://github.com/LordZintick/sp
   - Ingredients: Shears and Gold Ingot
 - Fireball - 0.5 second cooldown; 5 mana - Shoots a small blaze fireball that ignites the block it hits
   - Ingredient: Fire Charge
-- Fireball Barrage* - 3.5 second cooldown; 50 mana - Shoots a barrage of small blaze fireballs that ignite the blocks they hit
+- Fireball Barrage - 3.5 second cooldown; 50 mana - Shoots a barrage of small blaze fireballs that ignite the blocks they hit
   - Ingredients: Fire Charge and Bow
 - Gigantism - 10 second cooldown; 100 mana - Creative Only - Makes you ridiculously large for a bit
   - Ingredients: Command Block and Enchanted Golden Apple
@@ -61,11 +59,11 @@ While [you can add new spells with a datapack](https://github.com/LordZintick/sp
   - Ingredients: Golden Apple and Rotten Flesh
 - Smoke Screen - 2.5 second cooldown; 50 mana - Makes you and nearby players invisible, and creates a smoke screen around you
   - Ingredients: White Wool and Glass
-- Spectral Blast* - 2 second cooldown; 50 mana - Shoots a blast of spectral arrows in every direction
+- Spectral Blast - 2 second cooldown; 50 mana - Shoots a blast of spectral arrows in every direction
   - Ingredients: Spectral Arrow and TNT
-- Spectral Cluster* - 2 second cooldown; 50 mana - Shoots a cluster of spectral arrows in front of you
+- Spectral Cluster - 2 second cooldown; 50 mana - Shoots a cluster of spectral arrows in front of you
   - Ingredients: Spectral Arrow and Cobblestone
-- Spectral Stream* - 3 second cooldown; 40 mana - Shoots a stream of spectral arrows where you are looking
+- Spectral Stream - 3 second cooldown; 40 mana - Shoots a stream of spectral arrows where you are looking
   - Ingredients: Spectral Arrow and Iron Ingot
 - Speedy Fireball - 1 second cooldown; 10 mana - Shoots a fast blaze fireball that ignites the block it hits
   - Ingredients: Fire Charge and Sugar
