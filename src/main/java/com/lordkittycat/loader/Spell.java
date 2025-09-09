@@ -23,6 +23,7 @@ public class Spell implements StringConvertable {
     public final ArrayList<String> actions;
     public final int manaCost;
     public Identifier id;
+    public final String particleEffect;
 
     public Spell(String displayName, float cooldown, String description, ArrayList<String> ingredients, ArrayList<String> actions, int manaCost) {
         this.displayName = displayName;
@@ -31,6 +32,7 @@ public class Spell implements StringConvertable {
         this.ingredients = ingredients;
         this.actions = actions;
         this.manaCost = manaCost;
+        this.particleEffect = null;
     }
 
     public Spell(String displayName, float cooldown, ArrayList<String> ingredients, ArrayList<String> actions, int manaCost) {
@@ -39,7 +41,30 @@ public class Spell implements StringConvertable {
         this.ingredients = ingredients;
         this.actions = actions;
         this.manaCost = manaCost;
+        this.particleEffect = null;
         this.description = "(no description)";
+    }
+
+    public Spell(String displayName, float cooldown, String description, List<String> ingredients, List<String> actions, int manaCost) {
+        this.displayName = displayName;
+        this.cooldown = cooldown;
+        this.description = description;
+        this.ingredients = new ArrayList<>(ingredients);
+        this.actions = new ArrayList<>(actions);
+        this.manaCost = manaCost;
+        this.id = Identifier.of(SpellCasterAPI.MOD_ID, displayName.toLowerCase().replace(" ", "-"));
+        this.particleEffect = null;
+    }
+
+    public Spell(String displayName, float cooldown, String description, List<String> ingredients, List<String> actions, int manaCost, String particleEffect) {
+        this.displayName = displayName;
+        this.cooldown = cooldown;
+        this.description = description;
+        this.ingredients = new ArrayList<>(ingredients);
+        this.actions = new ArrayList<>(actions);
+        this.manaCost = manaCost;
+        this.id = Identifier.of(SpellCasterAPI.MOD_ID, displayName.toLowerCase().replace(" ", "-"));
+        this.particleEffect = particleEffect;
     }
 
     public record SpellParameterProvider(PlayerEntity player, ItemStack stack) {
@@ -65,7 +90,7 @@ public class Spell implements StringConvertable {
 
     @Nullable
     private Boolean tryParseBool(String s) {
-        return "true".equalsIgnoreCase(s) ? Boolean.TRUE : "false".equalsIgnoreCase(s) ? Boolean.FALSE : null;
+        return "true".equalsIgnoreCase(s) || "1b".equalsIgnoreCase(s) ? Boolean.TRUE : "false".equalsIgnoreCase(s) || "0b".equalsIgnoreCase(s) ? Boolean.FALSE : null;
     }
 
     private void runMethod(String methodID, SpellParameterProvider parameterProvider) {
@@ -80,6 +105,28 @@ public class Spell implements StringConvertable {
             final ArrayList<Object> finalParameters = new ArrayList<>();
             finalParameters.add(parameterProvider);
             finalParameters.addAll(extractValues(parameters));
+
+            for (Class<?> clazz : SpellLoader.SPELL_PROVIDERS.getValues()) {
+                if (Objects.equals(SpellLoader.SPELL_PROVIDERS.getID(clazz), collectionID)) {
+                    Method method = getSpellActionMethod(clazz, actionID);
+                    if (method != null) {
+                        try {
+                            method.invoke(this, finalParameters.toArray());
+                        } catch (IllegalAccessException | InvocationTargetException e) {
+                            SpellCasterAPI.LOGGER.error("An error occurred when casting spell: {}", e.getMessage());
+                            e.printStackTrace();
+                        }
+                    } else {
+                        throw new IllegalArgumentException("Could not find spell action with ID: \"" + actionID + "\" in spell collection: \"" + collectionID + "\"");
+                    }
+                }
+            }
+        } else if (methodID.startsWith("/")) {
+            String collectionID = "spellcaster-api";
+            String actionID = "execute";
+            final ArrayList<Object> finalParameters = new ArrayList<>();
+            finalParameters.add(parameterProvider);
+            finalParameters.add(methodID);
 
             for (Class<?> clazz : SpellLoader.SPELL_PROVIDERS.getValues()) {
                 if (Objects.equals(SpellLoader.SPELL_PROVIDERS.getID(clazz), collectionID)) {

@@ -9,10 +9,11 @@
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/spell-caster-api",
-		"sources": "https://github.com/LordZintick/spellcaster-api-1.21.4"
+		"sources": "https://github.com/LordZintick/spellcaster-api-1.21.4",
+		"issues": "https://github.com/LordZintick/spellcaster-api-1.21.4/issues"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/spellcaster-api/spellcaster-api-icon.png",
+	"icon": "assets/spellcaster-api/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
