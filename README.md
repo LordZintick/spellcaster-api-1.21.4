@@ -1,6 +1,8 @@
 # SpellCaster API
 SpellCaster API is a Fabric mod to load spells from JSON files from datapacks.<br>
-While [you can add new spells with a datapack](https://github.com/LordZintick/spellcaster-api-1.21.4/tree/master?tab=readme-ov-file#how-to-add-a-new-spell), the mod itself contains a plethora of default spells that you can use anytime.<br>
+It adds component-based items to cast the spells; wands to cast them as many times as you want, and scrolls to cast them once.<br>
+Wands need a blaze rod to craft, while scrolls only need a piece of paper.<br>
+While the main functionality is that [you can add new spells with a datapack](https://github.com/LordZintick/spellcaster-api-1.21.4/tree/master?tab=readme-ov-file#how-to-add-a-new-spell), the mod itself contains a plethora of default spells that you can use to test out the mod.<br>
 **Note that this mod may not be very balanced, proceed with caution in large modpacks or servers**
 > [!NOTE]
 > Feel free to use this in a modpack or on a server, though, again, it is not very well balanced
@@ -126,24 +128,23 @@ Now, open up your spell file and type this into it:
 }
 ```
 What was all that? Well, that was the spell JSON file! Here's a breakdown of what all that means:
-+ `displayName` - This is the display name of your spell, what is shown in the wand tooltip
++ `displayName` - This is the display name of your spell, what is shown in the wand/scroll tooltip
 + `cooldown` - This is the cooldown of your spell, in seconds
 + `manaCost` - This is the mana cost of your spell (The player has a max mana of 100)
-+ `description` - This is a description of what your spell does, it's shown underneath the `displayName` in the wand tooltip
++ `description` - This is a description of what your spell does, it's shown underneath the `displayName` in the wand/scroll tooltip
 + `ingredients` - This is a list of identifiers for the ingredients needed to craft this spell (e.g. `"minecraft:dirt"` or `"minecraft:diamond"`).
 + `actions` - This is a list of identifiers for the actions this spell performs when cast.<br>
 This is the most complicated part of making a spell, but once you get the hand of it, it is much easier than you think.<br>
-You can't add new spell actions with just a datapack, that requires a mod.<br>
 Spell actions have a special way you need to write them.<br>
 They need to be written as `<spell provider namespace>:<spell action id>(<parameters>)`.
     + The `<spell provider namespace>` is the namespace of the spell provider (when using the default spell actions, this will be `spellcaster-api`)
-    + The `<spell action id>` is the id of the spell action method inside of the spell provider class (Look at the [Default Spells](https://github.com/LordZintick/spellcaster-api-1.21.4/blob/master/src/main/java/com/lordkittycat/DefaultSpells.java) class to see all of the spell actions and ids)
-    + The `<parameters>` is a comma-separated list of parameters to search for an action with (Look at the [Default Spells](https://github.com/LordZintick/spellcaster-api-1.21.4/blob/master/src/main/java/com/lordkittycat/DefaultSpells.java) class to see all of the spell actions and their required parameters)
+    + The `<spell action id>` is the id of the spell action method inside of the spell provider class (Look at the [Default Spell Actions](https://github.com/LordZintick/spellcaster-api-1.21.4/blob/master/src/main/java/com/lordkittycat/DefaultSpellActions.java) class to see all of the spell actions and ids)
+    + The `<parameters>` is a comma-separated list of parameters to search for an action with (Look at the [Default Spell Actions](https://github.com/LordZintick/spellcaster-api-1.21.4/blob/master/src/main/java/com/lordkittycat/DefaultSpellActions.java) class to see all of the spell actions and their required parameters)
     + **Example:** `spellcaster-api:fireball(1.0, false)` will look for a spell action with id `fireball` with a `Float` parameter and a `Boolean` parameter in the spell provider with namespace `spellcaster-api` (the default provided spell actions). It will then trigger the method, providing `1.0` as the first parameter, and `false` as the second.
 > [!IMPORTANT]
 > Some default spell actions take an identifier as a parameter (for an item, entity, effect, etc.), such as `minecraft:zombie` or `minecraft:diamond`. 
 > With these identifiers, you have to use a semicolon (`;`) instead of a colon (`:`) or else it will not work.
 
-You just created a spell file! This file you just created creates a spell with a 1-second cooldown and a mana cost of 10 that shoots a small blaze fireball with a speed of 1! In order to craft it, you combine a stick and a diamond.<br>
+You just created a spell file! This file you just created creates a spell with a 1-second cooldown and a mana cost of 10 that shoots a small blaze fireball with a speed of 1! In order to craft the wand for it, you combine a blaze rod and a diamond.<br>
 You can now go into the game and test your new spell! (if you already had the game open, use the `/reload` command)
 You can add as many spells as you want, feel free to add other ones and experiment with the different parameters and actions.
