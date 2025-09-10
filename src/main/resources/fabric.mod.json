@@ -3,7 +3,7 @@
 	"id": "spellcaster-api",
 	"version": "${version}",
 	"name": "SpellCaster API",
-	"description": "An API that loads spells from JSON files and adds a wand to cast them",
+	"description": "An API that loads spells from JSON files and adds wands and scrolls to cast them",
 	"authors": [
 		"LordKittycat"
 	],
@@ -29,4 +29,5 @@
 		"java": ">=21",
 		"fabric-api": "*"
 	}
+
 }
