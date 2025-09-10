@@ -3,9 +3,8 @@ SpellCaster API is a Fabric mod to load spells from JSON files from datapacks.<b
 It adds component-based items to cast the spells; wands to cast them as many times as you want, and scrolls to cast them once.<br>
 Wands need a blaze rod to craft, while scrolls only need a piece of paper.<br>
 While the main functionality is that [you can add new spells with a datapack](https://github.com/LordZintick/spellcaster-api-1.21.4/tree/master?tab=readme-ov-file#how-to-add-a-new-spell), the mod itself contains a plethora of default spells that you can use to test out the mod.<br>
-**Note that this mod may not be very balanced, proceed with caution in large modpacks or servers**
 > [!NOTE]
-> Feel free to use this in a modpack or on a server, though, again, it is not very well balanced
+> Feel free to use this in a modpack or on a server.
 
 ## List of Default Spells (With a description and sorted alphabetically)
 
